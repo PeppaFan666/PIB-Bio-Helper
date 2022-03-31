@@ -44,6 +44,25 @@ def count_ratio(arr):
     else:
       recs += 1
   return [doms,recs]
+  
+def count_ratio_gendered(arr):
+  m_doms = 0
+  m_recs = 0
+  f_doms = 0
+  f_recs = 0
+  for i in arr:
+    if i[0].isupper():
+      if i[1] == "y":
+        m_doms += 1
+      else:
+        f_doms+=1
+    else:
+      if i[1] == "y":
+        m_recs += 1
+      else:
+        f_recs += 1
+  return [f_doms,f_recs,m_doms,m_recs]
+  
 
 def start():
   t = input("enter parent 1 phenotype, put a space between each letter\nie A a rather than Aa\n")

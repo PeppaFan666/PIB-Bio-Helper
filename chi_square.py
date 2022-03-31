@@ -9,7 +9,7 @@ degrees_of_freedom = {
   "4" : 9.49
 }
 
-tab = [[0 for x in range(3)] for y in range(6)] 
+tab = [[1 for x in range(4)] for y in range(6)]  
 
 
 def make_chart(t):
@@ -39,6 +39,21 @@ def add_expected(ratio):
   tab[2].append(domsum)
   tab[2].append(recsum)
   tab[2].append(domsum + recsum)
+  
+def add_expected_gendered(ratio):
+  tab[2].clear()
+  total = int(tab[len(tab[0])][1])
+  sum = ratio[0] + ratio[1] + ratio[2] + ratio[3]
+  frac = total / sum
+  domsum = frac * ratio[0]
+  recsum = frac * ratio[1]
+  m_domsum = frac * ratio[2]
+  m_recsum = frac * ratio[3]
+  tab[2].append(domsum)
+  tab[2].append(recsum)
+  tab[2].append(m_domsum)
+  tab[2].append(m_recsum)
+  tab[2].append(domsum + recsum + m_domsum + m_recsum)
   
 def add_expected_dihybrid(ratio):
   tab[2].clear()
@@ -108,12 +123,18 @@ def start():
 
   
   elif len(al2.split()) < 3:
+    t =input("is the trait gender based?\n")
     exp = punnets.internal_punnet(al1,al2)
-    ratio = punnets.count_ratio(exp)
-    add_expected(ratio)
+    if t == "Y":
+      ratio = punnets.count_ratio_gendered(exp)
+      add_expected_gendered(ratio)
+    else:
+      ratio = punnets.count_ratio(exp)
+      add_expected(ratio)
   else:
     ratio = dihybrid.internalcross(al1,al2)
     add_expected_dihybrid(ratio)
+  print(tab)
   OMinusE()
   OMinusESquared()
   finals()
