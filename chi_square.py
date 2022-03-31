@@ -1,5 +1,6 @@
 import punnets
-
+import dihybrid
+import sex_linked
 
 degrees_of_freedom = {
   "1": 3.84,
@@ -38,6 +39,40 @@ def add_expected(ratio):
   tab[2].append(domsum)
   tab[2].append(recsum)
   tab[2].append(domsum + recsum)
+  
+def add_expected_dihybrid(ratio):
+  tab[2].clear()
+  total = int(tab[len(tab[0])][1])
+  sum = ratio[0] + ratio[1] + ratio[2] + ratio[3]
+  frac = total / sum
+  domdomsum = frac * ratio[0]
+  domrecsum = frac * ratio[1]
+  recdomsum = frac * ratio[2]
+  recrecsum = frac * ratio[3]
+  tab[2].append(domdomsum)
+  tab[2].append(domrecsum)
+  tab[2].append(recdomsum)
+  tab[2].append(recrecsum)
+  tab[2].append(domdomsum + domrecsum+recdomsum+recrecsum)
+  
+def add_expected_codom(ratio):
+  tab[2].clear()
+  total = int(tab[len(tab[0])][1])
+  sum = ratio[0] + ratio[1] + ratio[2] + ratio[3] + ratio[4] + ratio[5]
+  frac = total / sum
+  domdomsum = frac * ratio[0]
+  domrecsum = frac * ratio[1]
+  recdomsum = frac * ratio[2]
+  recrecsum = frac * ratio[3]
+  fcodomsum = frac * ratio[4]
+  mcodomsum = frac * ratio[5]
+  tab[2].append(domdomsum)
+  tab[2].append(domrecsum)
+  tab[2].append(recdomsum)
+  tab[2].append(recrecsum)
+  tab[2].append(fcodomsum)
+  tab[2].append(mcodomsum)
+  tab[2].append(domdomsum + domrecsum+recdomsum+recrecsum + fcodomsum + mcodomsum)
 
 def OMinusE():
   tab[3].clear()
@@ -77,9 +112,24 @@ def start():
   al1 = t
   t = input("enter parent 2 allels\n")
   al2 = t
-  exp = punnets.internal_punnet(al1,al2)
-  ratio = punnets.count_ratio(exp)
-  add_expected(ratio)
+  t = input("Is the trait sex-linked? Y/N\n")
+  ratio = None
+  if t == "Y":
+    t = input("Is the trait codominant? Y/N\n")
+    if t == "y":
+      ratio = sex_linked.is_codominant(sex_linked.square(al1,al2))
+      add_expected_dihybrid(ratio)
+    else:
+      ratio = sex_linked.internal_print_chances(sex_linked.square(al1,al2))
+
+  
+  elif len(al2.split()) < 3:
+    exp = punnets.internal_punnet(al1,al2)
+    ratio = punnets.count_ratio(exp)
+    add_expected(ratio)
+  else:
+    ratio = dihybrid.internalcross(al1,al2)
+    add_expected_dihybrid(ratio)
   OMinusE()
   OMinusESquared()
   finals()

@@ -61,6 +61,17 @@ def order_dominants(arr):
       d += i
     r.append(d)
   return r
+
+def internal_order_dominants(arr):
+  r = []
+  for i in range(len(arr)):
+    n = arr[i].split()
+    n = my_sort(n)  
+    d = ""
+    for i in n:
+      d += i
+    r.append(d)
+  return r
       
 
 name = []
@@ -68,6 +79,28 @@ name2 = []
 internal = []
 internal2 = []
 result = []
+
+def internalcross(al1,al2):
+  f1 = internal_foil(al1)
+  f2 = internal_foil(al2)
+  r = calculate_cross(f1,f2)
+  r = internal_order_dominants(r)
+  domdom = 0
+  domrec = 0
+  recdom = 0
+  recrec = 0
+  for i in r:
+    i.split()
+    if i[0].isupper() and i[2].isupper():
+      domdom += 1
+    elif i[0].isupper() and not i[2].isupper():
+      domrec += 1
+    elif i[2].isupper() and not i[0].isupper():
+      recdom += 1
+    else:
+      recrec+=1
+  return[domdom,domrec,recdom,recrec]
+  
 
 def do():
   t = input("enter the parent allel, add a space between each letter\nie BbEe to B b E e\n\n")
