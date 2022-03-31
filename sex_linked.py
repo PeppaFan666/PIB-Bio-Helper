@@ -8,7 +8,6 @@ def square(m,f):
   arr[1] = my_sort(arr[1])
   arr.append(m[0] + "y")
   arr.append(m[1] + "y")
-  print(arr)
   return arr
 
 
@@ -52,7 +51,6 @@ def internal_print_chances(arr):
   female_rec =0
   female_dom = 0
   for i in arr:
-    b = False
     if i[0].isupper():
       if i[1] == "y":
         male_dom+=1
@@ -75,7 +73,6 @@ def print_chances(arr):
   rec = 0
   dom = 0
   for i in arr:
-    b = False
     if i[0].isupper():
       if i[1] == "y":
         male_dom+=1
@@ -101,7 +98,12 @@ def start():
   m= input("Please enter the mothers genes, disregard x's\nie not xr and instead just r\nput spaces between each charected\n ie R R instead of RR\n")
   f = input("enter fathers genes, same format as mothers, do not include Y\n")
   a2 = m
+  a3 = a2.split()
+  a3.pop(0)
+  a3 = a3[0]
+  
   a1= f
   v = square(m,f)
-  print("\n\n\nResult:\n  " + str(a2[0]) + str(a2[1]) +"\n"+ str(a1[0])+ " " + str(v[0]) + " "+ str(v[1]) +"\n" + "y" + " " + str(v[2])+ " " + str(v[3]))
+  a2.split()
+  print("\n\n\nResult:\n  " + str(a2[0]) + "  " + str(a3) +"\n"+ str(a1[0])+ " " + str(v[0]) + " "+ str(v[1]) +"\n" + "y"+ " " + str(v[2])+ " " + str(v[3]))
   print("\n\n\n\n\n" + print_chances(v))

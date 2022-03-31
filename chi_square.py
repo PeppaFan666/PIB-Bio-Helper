@@ -70,7 +70,6 @@ def OMinusESquared():
 def finals():
   tab[5].clear()
   for i in range(len(tab[0])-1):
-    print(tab[2])
     tab[5].append(str(int(tab[4][i])/int(tab[2][i])))
     v = 0
   for i in range(len(tab[0])-1):
@@ -87,13 +86,14 @@ def get_print():
   return "Phenotypes: " + t1 + "\nObserved: " + t2 + "\nExpected: " + t3 + "\nO Minus E: " + t4 + "\nO Minus E Squared: " + t5 + "\nO Minus E Square over E: " + t6
     
 def start():
+  print("\n\n\n\n\n")
   t =input("enter phenotypes, separated by spaces\n ie yellow green\n")
   make_chart(t)
   t = input("enter observations, seperated by spaces\n")
   add_observed(t)
-  t = input("enter parent 1 allels(with spaces)\n")
+  t = input("enter parent 1 allels(with spaces)\nif trait is codominant make the second dominant lowercase\nie if the trait is BO and its codominant instead make it B o\n")
   al1 = t
-  t = input("enter parent 2 allels\n")
+  t = input("enter parent 2 allels\nsame convention as last time, only one letter, do not include y chromosome if trait is sex linked\n")
   al2 = t
   t = input("Is the trait sex-linked? Y/N\n")
   ratio = None
