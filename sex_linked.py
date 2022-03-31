@@ -8,6 +8,7 @@ def square(m,f):
   arr[1] = my_sort(arr[1])
   arr.append(m[0] + "y")
   arr.append(m[1] + "y")
+  print(arr)
   return arr
 
 
@@ -22,31 +23,28 @@ def my_sort(arr):
   d = arr[0] + arr[1]
   return d
 
-def is_codominant(arr):
+def is_codominant(arr,index):
   male_rec =0
   male_dom =0
   female_rec =0
   female_dom = 0
-  male_codom = 0
-  female_codom = 0
+  codom = 0
   for i in arr:
-    b = False
-    if i[0].isupper() and i[1].isupper():
+    if i[0].isupper() and i[1].islower():
       if i[1] == "y":
-        male_codom+=1
+        male_dom += 1
       else:
-        female_codom +=1
-    elif i[0].isupper():
-      if i[1] == "y":
-        male_dom+=1
-      else:
-        female_dom +=1
-    else:
-      if i[1] == "y":
-        male_rec += 1
-      else:
-        female_rec +=1
-  return [female_codom,female_dom,female_rec,male_codom,male_dom,male_rec]
+        codom += 1
+    if i[0].islower() and i[1] == "y":
+      male_rec += 1
+    if i[0].isupper() and i[0] == i[1]:
+      female_dom += 1
+    if i[0].islower() and i[0] == i[1]:
+      female_rec += 1
+    
+    l = [female_dom,female_rec,male_dom,male_rec]
+    l[index] = codom
+  return l
 
 def internal_print_chances(arr):
   male_rec =0

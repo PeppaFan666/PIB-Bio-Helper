@@ -55,24 +55,6 @@ def add_expected_dihybrid(ratio):
   tab[2].append(recrecsum)
   tab[2].append(domdomsum + domrecsum+recdomsum+recrecsum)
   
-def add_expected_codom(ratio):
-  tab[2].clear()
-  total = int(tab[len(tab[0])][1])
-  sum = ratio[0] + ratio[1] + ratio[2] + ratio[3] + ratio[4] + ratio[5]
-  frac = total / sum
-  domdomsum = frac * ratio[0]
-  domrecsum = frac * ratio[1]
-  recdomsum = frac * ratio[2]
-  recrecsum = frac * ratio[3]
-  fcodomsum = frac * ratio[4]
-  mcodomsum = frac * ratio[5]
-  tab[2].append(domdomsum)
-  tab[2].append(domrecsum)
-  tab[2].append(recdomsum)
-  tab[2].append(recrecsum)
-  tab[2].append(fcodomsum)
-  tab[2].append(mcodomsum)
-  tab[2].append(domdomsum + domrecsum+recdomsum+recrecsum + fcodomsum + mcodomsum)
 
 def OMinusE():
   tab[3].clear()
@@ -88,6 +70,7 @@ def OMinusESquared():
 def finals():
   tab[5].clear()
   for i in range(len(tab[0])-1):
+    print(tab[2])
     tab[5].append(str(int(tab[4][i])/int(tab[2][i])))
     v = 0
   for i in range(len(tab[0])-1):
@@ -116,11 +99,12 @@ def start():
   ratio = None
   if t == "Y":
     t = input("Is the trait codominant? Y/N\n")
-    if t == "y":
-      ratio = sex_linked.is_codominant(sex_linked.square(al1,al2))
-      add_expected_dihybrid(ratio)
+    if t == "Y":
+      i = input("What group is the codominant (enter a number)\n")
+      ratio = sex_linked.is_codominant(sex_linked.square(al1,al2),int(i)-1)
     else:
       ratio = sex_linked.internal_print_chances(sex_linked.square(al1,al2))
+    add_expected_dihybrid(ratio)
 
   
   elif len(al2.split()) < 3:
